@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bykabvfvcadj0"]
+
+[node name="Fence" type="Node3D"]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 2, 0, 0, 0, 0.4, 0, 0.3, 0)
+use_collision = true
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 2, 0, 0, 0, 0.4, 3.6000001, 0.3, 0)
+use_collision = true
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-1.7484556e-08, -4, 0, 0.4, -1.7484555e-07, 0, 0, 0, 0.4, 1.8000001, 0.40000004, 0)
+use_collision = true
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(-1.7484556e-08, -4, 0, 0.4, -1.7484555e-07, 0, 0, 0, 0.4, 1.8000001, 0.9, 0)
+use_collision = true

@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://t50gtvfxfb28"]
+
+[ext_resource type="Script" uid="uid://cecotml6ic8y5" path="res://game_feel/scripts/Player.cs" id="1_ddsmw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yv03m"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ddsmw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_friah"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a7agk"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerPivot", "playerHeadCollision", "CameraPivot", "CameraYaw", "CameraPitch", "camera3D")]
+script = ExtResource("1_ddsmw")
+PlayerPivot = NodePath("PlayerPivot")
+playerHeadCollision = NodePath("CollisionUpper")
+CameraPivot = NodePath("CameraPivot")
+CameraYaw = NodePath("CameraPivot/CameraYaw")
+CameraPitch = NodePath("CameraPivot/CameraYaw/CameraPitch")
+camera3D = NodePath("CameraPivot/CameraYaw/CameraPitch/SpringArm3D/Camera3D")
+
+[node name="CollisionUpper" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.58, 0)
+shape = SubResource("SphereShape3D_yv03m")
+
+[node name="CollisionLower" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, -0.58, 0)
+shape = SubResource("SphereShape3D_ddsmw")
+
+[node name="PlayerPivot" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -1, 0)
+
+[node name="player_mesh" type="MeshInstance3D" parent="PlayerPivot"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_friah")
+
+[node name="player_eyes_mesh" type="MeshInstance3D" parent="PlayerPivot/player_mesh"]
+transform = Transform3D(0.6, 0, 0, 0, 0.4, 0, 0, 0, 0.2, 0, 0.4, -0.5)
+mesh = SubResource("BoxMesh_a7agk")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="CameraYaw" type="Node3D" parent="CameraPivot"]
+
+[node name="CameraPitch" type="Node3D" parent="CameraPivot/CameraYaw"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot/CameraYaw/CameraPitch"]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/CameraYaw/CameraPitch/SpringArm3D"]

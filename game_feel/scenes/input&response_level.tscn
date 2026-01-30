@@ -1,0 +1,134 @@
+[gd_scene load_steps=15 format=3 uid="uid://cxjti40w4hkd8"]
+
+[ext_resource type="Texture2D" uid="uid://qnl2end2444q" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_ilop7"]
+[ext_resource type="PackedScene" uid="uid://t50gtvfxfb28" path="res://game_feel/prefabs/player.tscn" id="2_r1qm3"]
+[ext_resource type="PackedScene" uid="uid://ddo5rsv5jtcit" path="res://game_feel/prefabs/platform_01.tscn" id="3_hc5qu"]
+[ext_resource type="PackedScene" uid="uid://cgoulcr8wiedr" path="res://game_feel/prefabs/pillar.tscn" id="4_lqt51"]
+[ext_resource type="PackedScene" uid="uid://b7anjvc1kdas7" path="res://game_feel/prefabs/highway.tscn" id="5_oxv5x"]
+[ext_resource type="PackedScene" uid="uid://dfnw7qis7a4ug" path="res://game_feel/prefabs/barrel.tscn" id="6_lbyl1"]
+[ext_resource type="PackedScene" uid="uid://d18drrxdxh8c4" path="res://game_feel/prefabs/ball.tscn" id="7_rwvko"]
+[ext_resource type="PackedScene" uid="uid://civjfub05p8h5" path="res://game_feel/prefabs/sphere_metal.tscn" id="8_d0k08"]
+[ext_resource type="PackedScene" uid="uid://d2qq7the83ia3" path="res://game_feel/prefabs/concrete_road_blocks.tscn" id="9_d0k08"]
+[ext_resource type="PackedScene" uid="uid://b08yl2xko4s0" path="res://game_feel/prefabs/car.tscn" id="10_rch64"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hc5qu"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_lqt51"]
+sky_material = SubResource("ProceduralSkyMaterial_hc5qu")
+
+[sub_resource type="Environment" id="Environment_oxv5x"]
+background_mode = 2
+sky = SubResource("Sky_lqt51")
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+fog_enabled = true
+volumetric_fog_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1qm3"]
+albedo_texture = ExtResource("1_ilop7")
+uv1_scale = Vector3(5, 5, 5)
+uv1_triplanar = true
+uv2_scale = Vector3(5, 5, 5)
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[node name="Input&Response Level" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.49240392, -0.8254299, 0.27605048, 0.08682412, 0.36216772, 0.9280604, -0.86602545, -0.43301275, 0.25, 17.6, 42.235138, 0)
+light_color = Color(0.07683582, 0.07683582, 0.07683582, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_oxv5x")
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 0.5, 0, 0, 0, 100, 0, 0, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_r1qm3")
+
+[node name="Player" parent="." instance=ExtResource("2_r1qm3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.700001, 1.6499997, 3)
+
+[node name="Platform01" parent="." instance=ExtResource("3_hc5qu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.17499995, -2.5)
+
+[node name="Highway" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="Pillar" parent="Highway" instance=ExtResource("4_lqt51")]
+
+[node name="Pillar2" parent="Highway" instance=ExtResource("4_lqt51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="Pillar3" parent="Highway" instance=ExtResource("4_lqt51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
+
+[node name="Pillar4" parent="Highway" instance=ExtResource("4_lqt51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+
+[node name="Pillar5" parent="Highway" instance=ExtResource("4_lqt51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
+
+[node name="HighwayRoad" parent="Highway" instance=ExtResource("5_oxv5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Barrel" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 1.0000001, -7.7)
+
+[node name="Barrel5" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 1.0000001, -6.7999997)
+
+[node name="Barrel6" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.199999, 1.0000001, 1.3000003)
+
+[node name="Barrel7" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.099998, 1.0000001, 1.3000003)
+
+[node name="Barrel8" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.699999, 2.4, 1.3000003)
+
+[node name="Barrel2" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 5.8000007, -10.5)
+
+[node name="Barrel3" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 5.8000007, -11.5)
+
+[node name="Barrel4" parent="Environment" instance=ExtResource("6_lbyl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 7.3000007, -11)
+
+[node name="Ball" parent="Environment" instance=ExtResource("7_rwvko")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7999997, -10.8)
+
+[node name="Ball2" parent="Environment" instance=ExtResource("7_rwvko")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1000001, 0.8999996, -3.4)
+
+[node name="Sphere_metal" parent="Environment" instance=ExtResource("8_d0k08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3000002, 0.8, -2.3)
+
+[node name="Sphere_metal2" parent="Environment" instance=ExtResource("8_d0k08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 5.7000003, -10.2)
+
+[node name="ConcreteRoadBlocks" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, -21.800001)
+
+[node name="Concrete_road_blocks" parent="ConcreteRoadBlocks" instance=ExtResource("9_d0k08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9000006, 0.6, 1.8999996)
+
+[node name="Concrete_road_blocks2" parent="ConcreteRoadBlocks" instance=ExtResource("9_d0k08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.200001, 0.6, 1.8999996)
+
+[node name="Concrete_road_blocks3" parent="ConcreteRoadBlocks" instance=ExtResource("9_d0k08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.800001, 0.6, 1.8999996)
+
+[node name="Concrete_road_blocks4" parent="ConcreteRoadBlocks" instance=ExtResource("9_d0k08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.100002, 0.6, 1.8999996)
+
+[node name="Car" parent="." instance=ExtResource("10_rch64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4358416, 0.85, 6.526082)
