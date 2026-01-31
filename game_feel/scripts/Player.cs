@@ -20,6 +20,8 @@ public partial class Player : CharacterBody3D
 	[Export] private float Gravity = 9.81f;
 	[Export] private float JumpDelay = 0.1f;
 	[Export] private float CoyoteTime = 10f;
+	[Export] private float HoverTime = 0.08f;
+	private float HoverTimer = 0f;
 	private float CoyoteTimer = 0;
 	private float JumpDelayTimer = 0f;
 
@@ -61,6 +63,7 @@ public partial class Player : CharacterBody3D
 	[Export] bool IsJump = false;
 	[Export] bool IsCrouch = false;
 	[Export] bool HasJump = false;
+	[Export] bool IsHover = false;
 
 	private bool PlayerDebug = false;
 
@@ -118,6 +121,7 @@ public partial class Player : CharacterBody3D
 		HandlePlayerMovement(delta);
 		MoveAndSlide();
 		HandleCollision();
+		//GD.Print("OnFloor: ", IsOnFloor());
 	}
 
 	// Player Movement
@@ -130,10 +134,22 @@ public partial class Player : CharacterBody3D
 		Vector2 inputDirection = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
 		Vector3 direction = (CameraPivot.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y)).Normalized();
 
-		// Add the gravity.
+		// Start Hovertimier and apply the gravity.
 		if (!IsOnFloor())
 		{
-			velocity.Y -= Gravity * (float)delta;
+			if (velocity.Y < 0 && HoverTimer > 0f)
+			{
+				HoverTimer -= (float)delta;
+				velocity.Y = 0;
+			}
+			else
+			{
+				velocity.Y -= Gravity * (float)delta;
+			}
+		}
+		else
+		{
+			HoverTimer = HoverTime;
 		}
 
 		if (!IsJump)
@@ -154,7 +170,7 @@ public partial class Player : CharacterBody3D
 		{
 			IsJump = true;
 			JumpDelayTimer = JumpDelay;
-
+			
 			Vector3 playerScale = PlayerPivot.Scale;
 			playerScale.Y = CrouchHeight; // 0.5
 			PlayerPivot.Scale = playerScale;	
