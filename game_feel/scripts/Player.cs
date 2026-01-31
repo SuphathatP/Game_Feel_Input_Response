@@ -6,6 +6,8 @@ public partial class Player : CharacterBody3D
 	[ExportGroup("Player")]
 	[Export] Node3D PlayerPivot;
 	[Export] CollisionShape3D playerHeadCollision;
+	[Export] SpotLight3D FlashLight;
+	[Export] MeshInstance3D PlayerEyes;
 	[Export] private float CrouchHeight = 0.5f;
 	[Export] private float StandHeight = 1.0f;
 
@@ -64,6 +66,7 @@ public partial class Player : CharacterBody3D
 	[Export] bool IsCrouch = false;
 	[Export] bool HasJump = false;
 	[Export] bool IsHover = false;
+	private bool IsFlashLightOn = false;
 
 	private bool PlayerDebug = false;
 
@@ -179,6 +182,8 @@ public partial class Player : CharacterBody3D
 		// Handle Crouch.
 		IsCrouch = Input.IsActionPressed("crouch");
 		HandleCrouch();
+
+		HandleFlashLight();
 		
 		// Direction.Y = 0;
 		if (direction != Vector3.Zero)
@@ -365,6 +370,18 @@ public partial class Player : CharacterBody3D
 		PlayerPivot.Scale = playerCrouch;	
 	}
 
+	private void HandleFlashLight()
+	{
+		var mat = PlayerEyes.GetActiveMaterial(0) as StandardMaterial3D;
+		
+		if (Input.IsActionJustPressed("flash_light"))
+		{
+			IsFlashLightOn = !IsFlashLightOn;
+			FlashLight.Visible = IsFlashLightOn;
+			mat.EmissionEnabled = IsFlashLightOn;
+		}
+	}
+
 	// Dynamic camera
 	private void DynamicThirdPersonCamera(double delta)
 	{
@@ -426,7 +443,7 @@ public partial class Player : CharacterBody3D
 		{ 
 			AccelerationMode.Immediate => "Immediate", 
 			AccelerationMode.Linear => "Linear", 
-			AccelerationMode.Ease => "Ease-In",
+			AccelerationMode.Ease => "Ease",
 			 _ => "Unknown" 
 		}; 
 	}

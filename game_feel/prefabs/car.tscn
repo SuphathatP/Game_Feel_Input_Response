@@ -1,9 +1,72 @@
-[gd_scene load_steps=3 format=3 uid="uid://b08yl2xko4s0"]
+[gd_scene load_steps=7 format=3 uid="uid://b08yl2xko4s0"]
 
 [ext_resource type="Material" uid="uid://dyuqp8pqks7a5" path="res://game_feel/materials/yellow_emission_material.tres" id="1_hshj2"]
+[ext_resource type="Script" uid="uid://cvqja6x4ei6sr" path="res://game_feel/scripts/Car.cs" id="1_rs03o"]
 [ext_resource type="Material" uid="uid://crfcll6wlgnye" path="res://game_feel/materials/red_emission_material.tres" id="2_rs03o"]
 
+[sub_resource type="Animation" id="Animation_hshj2"]
+resource_name = "car_front_light_anim"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lights/FrontLight/SpotLight3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lights/FrontLight/SpotLight3D2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_rs03o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lights/FrontLight/SpotLight3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lights/FrontLight/SpotLight3D2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ot8pi"]
+_data = {
+&"RESET": SubResource("Animation_rs03o"),
+&"car_front_light_anim": SubResource("Animation_hshj2")
+}
+
 [node name="Car" type="Node3D"]
+script = ExtResource("1_rs03o")
 
 [node name="BaseCar" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
@@ -46,15 +109,27 @@ sides = 18
 
 [node name="Lights" type="Node3D" parent="."]
 
-[node name="Light" type="CSGCylinder3D" parent="Lights"]
+[node name="FrontLight" type="Node3D" parent="Lights"]
+
+[node name="Light" type="CSGCylinder3D" parent="Lights/FrontLight"]
 transform = Transform3D(-1.0927847e-08, -0.05, 0, 0.25, -2.1855695e-09, 0, 0, 0, 0.25, -3, 0.3, -0.6)
 sides = 10
 material = ExtResource("1_hshj2")
 
-[node name="Light2" type="CSGCylinder3D" parent="Lights"]
+[node name="Light2" type="CSGCylinder3D" parent="Lights/FrontLight"]
 transform = Transform3D(-1.0927847e-08, -0.05, 0, 0.25, -2.1855695e-09, 0, 0, 0, 0.25, -3, 0.3, 0.6)
 sides = 10
 material = ExtResource("1_hshj2")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights/FrontLight"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.1000001, 0.3, -0.59999996)
+light_color = Color(0.85490197, 0.7490196, 0, 1)
+light_energy = 2.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lights/FrontLight"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.1000001, 0.3, 0.6000001)
+light_color = Color(0.85490197, 0.7490196, 0, 1)
+light_energy = 2.0
 
 [node name="Light3" type="CSGCylinder3D" parent="Lights"]
 transform = Transform3D(-1.0927847e-08, -0.05, 0, 0.25, -2.1855695e-09, 0, 0, 0, 0.25, 3.0000002, 0.3, -0.6)
@@ -66,12 +141,7 @@ transform = Transform3D(-1.0927847e-08, -0.05, 0, 0.25, -2.1855695e-09, 0, 0, 0,
 sides = 10
 material = ExtResource("2_rs03o")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.1000001, 0.3, -0.59999996)
-light_color = Color(0.85490197, 0.7490196, 0, 1)
-light_energy = 2.0
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.1000001, 0.3, 0.6000001)
-light_color = Color(0.85490197, 0.7490196, 0, 1)
-light_energy = 2.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ot8pi")
+}

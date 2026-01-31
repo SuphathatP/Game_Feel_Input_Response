@@ -1,19 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://t50gtvfxfb28"]
+[gd_scene load_steps=8 format=3 uid="uid://t50gtvfxfb28"]
 
 [ext_resource type="Script" uid="uid://cecotml6ic8y5" path="res://game_feel/scripts/Player.cs" id="1_ddsmw"]
+[ext_resource type="Material" uid="uid://b1riiqd3padwa" path="res://game_feel/materials/player_eyes_material.tres" id="2_friah"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yv03m"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ddsmw"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddsmw"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_friah"]
+material = SubResource("StandardMaterial3D_ddsmw")
 
 [sub_resource type="BoxMesh" id="BoxMesh_a7agk"]
+material = ExtResource("2_friah")
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerPivot", "playerHeadCollision", "CameraPivot", "CameraYaw", "CameraPitch", "camera3D")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerPivot", "playerHeadCollision", "FlashLight", "PlayerEyes", "CameraPivot", "CameraYaw", "CameraPitch", "camera3D")]
 script = ExtResource("1_ddsmw")
 PlayerPivot = NodePath("PlayerPivot")
 playerHeadCollision = NodePath("CollisionUpper")
+FlashLight = NodePath("PlayerPivot/FlashLight")
+PlayerEyes = NodePath("PlayerPivot/player_mesh/player_eyes_mesh")
 CameraPivot = NodePath("CameraPivot")
 CameraYaw = NodePath("CameraPivot/CameraYaw")
 CameraPitch = NodePath("CameraPivot/CameraYaw/CameraPitch")
@@ -37,6 +44,13 @@ mesh = SubResource("CapsuleMesh_friah")
 [node name="player_eyes_mesh" type="MeshInstance3D" parent="PlayerPivot/player_mesh"]
 transform = Transform3D(0.6, 0, 0, 0, 0.4, 0, 0, 0, 0.2, 0, 0.4, -0.5)
 mesh = SubResource("BoxMesh_a7agk")
+
+[node name="FlashLight" type="SpotLight3D" parent="PlayerPivot"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5.2453668e-08, 1.4000001, 0.6)
+visible = false
+light_energy = 4.0
+shadow_enabled = true
+spot_range = 10.0
 
 [node name="CameraPivot" type="Node3D" parent="."]
 

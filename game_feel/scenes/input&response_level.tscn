@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cxjti40w4hkd8"]
+[gd_scene load_steps=16 format=3 uid="uid://cxjti40w4hkd8"]
 
 [ext_resource type="Texture2D" uid="uid://qnl2end2444q" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_ilop7"]
 [ext_resource type="PackedScene" uid="uid://t50gtvfxfb28" path="res://game_feel/prefabs/player.tscn" id="2_r1qm3"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://civjfub05p8h5" path="res://game_feel/prefabs/sphere_metal.tscn" id="8_d0k08"]
 [ext_resource type="PackedScene" uid="uid://d2qq7the83ia3" path="res://game_feel/prefabs/concrete_road_blocks.tscn" id="9_d0k08"]
 [ext_resource type="PackedScene" uid="uid://b08yl2xko4s0" path="res://game_feel/prefabs/car.tscn" id="10_rch64"]
+[ext_resource type="PackedScene" uid="uid://0y0wj7ol1r0m" path="res://game_feel/prefabs/pole_banner.tscn" id="11_t73ji"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hc5qu"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -52,7 +53,7 @@ use_collision = true
 material = SubResource("StandardMaterial3D_r1qm3")
 
 [node name="Player" parent="." instance=ExtResource("2_r1qm3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.700001, 1.8499998, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.700001, 1.2499998, 15.8)
 
 [node name="Platform01" parent="." instance=ExtResource("3_hc5qu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.17499995, -2.5)
@@ -132,3 +133,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.100002, 0.6, 1.8999996)
 
 [node name="Car" parent="." instance=ExtResource("10_rch64")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4358416, 0.85, 6.526082)
+
+[node name="PoleBanner" parent="." instance=ExtResource("11_t73ji")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3, 7.5000005, -0.4999994)
+
+[node name="PoleBanner2" parent="." instance=ExtResource("11_t73ji")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 7.5000005, -0.4999994)
