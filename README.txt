@@ -13,6 +13,7 @@ WASD – Move player
 C – Walk
 Left Shift – Sprint
 Left Control – Crouch
+Spacebar - Jump
 T – Toggle Flashlight
 1 – Immediate Acceleration Mode
 2 – Linear Acceleration Mode
